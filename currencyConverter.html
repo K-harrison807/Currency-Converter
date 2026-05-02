@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My currency</title>
+	<style>
+		body{
+			text-align:center;
+		
+		}
+	
+		#amount{
+			width:50%;
+			height:27px;
+		}
+		button{
+			width:15%;
+			height:27px;
+			background-color:#0000ff;
+			border:none;
+			color:white;
+			margin-right:535px;
+			cursor:pointer;
+			border-radius:1rem;
+		}
+		button:hover{
+			background-color:#00ff00
+		}
+		table{
+			margin-left:auto;
+			margin-right:auto;
+			margin-top:40px;
+			border-collapse:collapse;
+			width:50%;
+			
+		}
+		th,td{
+			border:1px solid grey;
+			padding:5px;
+		}
+		th{
+			background-color:lightgrey;
+		}
+		.hidden{
+			display:none;
+		}
+		
+		
+	
+	</style>
+	
+</head>
+<body>
+    <h1>Exchange Rate Calculator</h1>
+    
+    <form onsubmit="return converting_currency()">
+        <label for="amount">Please Enter The Amount you want to Exchange in ZAR:</label><br>
+        <input type="number" id="amount" placeholder="Enter amount in ZAR" required><br><br>
+		<button type="submit">Convert Currency</button>
+    </form>
+    
+    <table>
+        <tr>
+            <th>Currency</th>
+            <th>Today's Exchange Rate</th>
+			<th>Amount You will Receive in ZAR Currency</th>
+        </tr>
+        <tr class="hidden" id="row_usd"><td>USD</td><td>18.24</td><td id="amount_usd"></td></tr>
+        <tr class="hidden" id="row_euro"><td>EURO</td><td>19.89</td><td id="amount_euro"></td></tr>
+        <tr class="hidden" id="row_gbp"><td>GBP</td><td>23.6</td><td id="amount_gbp"></td></tr>
+        <tr class="hidden" id="row_jpy"><td>JPY</td><td>0.12</td><td id="amount_jpy"></td></tr>
+        <tr class="hidden" id="row_aud"><td>AUD</td><td>12.22</td><td id="amount_aud"></td></tr>
+        <tr class="hidden" id="row_cad"><td>CAD</td><td>13.31</td><td id="amount_cad"></td></tr>
+        <tr class="hidden" id="row_chf"><td>CHF</td><td>20.56</td><td id="amount_chf"></td></tr>
+        <tr class="hidden" id="row_cny"><td>CNY</td><td>2.51</td><td id="amount_cny"></td></tr>
+        <tr class="hidden" id="row_inr"><td>INR</td><td>0.22</td><td id="amount_inr"></td></tr>
+        <tr class="hidden" id="row_brl"><td>BRL</td><td>3.37</td><td id="amount_brl"></td></tr>
+    </table>
+	
+	
+
+
+    <script>
+        function converting_currency() {
+            
+            //convert user input to float
+            var Amount = parseFloat(document.getElementById("amount").value);
+            
+            //check if user input is valid
+            if ( isNaN(Amount)||Amount <= 0) {
+                alert("Please eenter a valid amount in Rands.");
+                return false;
+            }
+
+           //The covertRates
+            var converRates = {
+                "USD": 18.24,
+                "EURO": 19.89,
+                "GBP": 23.6,
+                "JPY": 0.12,
+                "AUD": 12.22,
+                "CAD": 13.31,
+                "CHF": 20.56,
+                "CNY": 2.51,
+                "INR": 0.22,
+                "BRL": 3.37
+            };
+
+            
+            var amount_conv = {};
+
+           
+            for (var cur in converRates) {
+            var ConvertedAmount= (Amount * converRates[cur]).toFixed(2); //multiply user input with the converRates
+			document.getElementById("row_"+cur.toLowerCase()).classList.remove("hidden");//remove the hidden so we can display the table
+			document.getElementById("amount_"+cur.toLowerCase()).innerText=ConvertedAmount;
+		}
+            return false; 
+        }
+    </script>
+</body>
+</html>
